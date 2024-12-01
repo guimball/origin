@@ -1,0 +1,28 @@
+[
+    {
+        "_id": "67044bdadafc4ef23a29b602",
+        "name": "João Moreira",
+        "email": "mabel.azv@outlook.com",
+        "isActive": false,
+        "createdAt": "2024-10-07T21:00:10.449Z",
+        "__v": 0
+    },
+    {
+        "_id": "670457e0dafc4ef23a29b609",
+        "name": "Nome Teste",
+        "email": "teste@exemplo.com",
+        "isActive": false,
+        "createdAt": "2024-10-07T21:51:28.942Z",
+        "__v": 0
+    },
+    {
+        "_id": "67045c89c1c1e65dcb0f274b",
+        "name": "Nome Teste",
+        "email": "oedoslozamo@gmail.com",
+        "isAdmin": false,
+        "isActive": false,
+        "createdAt": "2024-10-07T22:11:21.538Z",
+        "updatedAt": "2024-10-07T22:11:21.538Z",
+        "__v": 0
+    }
+]

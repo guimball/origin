@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login e Registro</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        .form-container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Alerta de erro -->
+    <div id="alert" class="alert alert-danger d-none" role="alert">
+        Senha incorreta! Tente novamente.
+    </div>
+
+    <!-- Formulário de Login -->
+    <div class="form-container">
+        <h2 class="text-center">Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">E-mail:</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="Digite seu e-mail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Senha:</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Digite sua senha" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="#" data-toggle="modal" data-target="#registerModal">Não tem uma conta? Registre-se</a>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="registerEmail">E-mail:</label>
+                            <input type="email" class="form-control" id="registerEmail" placeholder="Digite seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Senha:</label>
+                            <input type="password" class="form-control" id="registerPassword" placeholder="Digite sua senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+<!-- aqui ta o axios, que conecta com o back as infos pra login-->
+<script>
+    // Formulário de login
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Evita o envio do formulário
+
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const response = await axios.post('http://localhost:3000/api/login', {
+                email: email,
+                password: password
+            });
+
+            if (response.data.success) {
+                // Redirecionar ou realizar outras ações após o login bem-sucedido
+                alert("Login bem-sucedido!");
+                window.location.href = "URL_DA_PAGINA_DA_HOME"; // Redireciona para a página inicial
+            } else {
+                document.getElementById('alert').classList.remove('d-none'); // Mostra o alerta
+            }
+        } catch (error) {
+            console.error("Erro durante o login:", error);
+            document.getElementById('alert').classList.remove('d-none'); // Mostra o alerta
+        }
+    });
+
+    // Formulário de registro
+    document.getElementById('registerForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Evita o envio do formulário
+
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+
+        try {
+            const response = await axios.post('http://localhost:3000/api/register', {
+                email: email,
+                password: password
+            });
+
+            if (response.data.success) {
+                alert("Registro bem-sucedido! Você pode fazer login agora.");
+                $('#registerModal').modal('hide'); // Fecha o modal
+            } else {
+                alert("Erro ao registrar. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro durante o registro:", error);
+            alert("Erro ao registrar. Tente novamente.");
+        }
+    });
+</script>
+</body>
+</html>

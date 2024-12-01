@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Reserva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        p, ul {
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 5px 0;
+        }
+        .footer {
+            color: #777;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <h2>Sua Reserva foi Criada com Sucesso!</h2>
+        <p>Olá <strong>{{username}}</strong>,</p>
+        <p>Sua reserva para a propriedade <strong>{{property.name}}</strong> foi realizada com sucesso.</p>
+        <p><strong>Detalhes da Reserva:</strong></p>
+        <ul>
+            <li>Propriedade: {{property.name}}</li>
+            <li>Localização: {{property.location}}</li>
+            <li>Data de Início: {{startDate}}</li>
+            <li>Data de Término: {{endDate}}</li>
+            <li>Status da Reserva: {{bookingStatus}}</li>
+        </ul>
+        <p class="footer">Se precisar de mais informações ou quiser alterar a reserva, entre em contato conosco.<br>Atenciosamente,<br>Equipe da Corretora</p>
+    </div>
+</body>
+</html>

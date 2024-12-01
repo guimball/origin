@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page - Corretor de Imóveis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .welcome-section {
+            padding: 50px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .card {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Corretor de Imóveis</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Visualizar Imóveis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Agendar Visitas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Propostas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="welcome-section">
+        <h1>Bem-vindo ao Sistema de Imóveis!</h1>
+        <p>Estamos felizes em tê-lo aqui. Explore nossas opções e encontre o imóvel dos seus sonhos.</p>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center mt-5">Imóveis Disponíveis</h2>
+        <div class="row">
+            <!-- Card de imóvel exemplo -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Imóvel 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Imóvel 1</h5>
+                        <p class="card-text">Descrição breve do imóvel 1.</p>
+                        <a href="#" class="btn btn-primary">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card de imóvel exemplo -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Imóvel 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Imóvel 2</h5>
+                        <p class="card-text">Descrição breve do imóvel 2.</p>
+                        <a href="#" class="btn btn-primary">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card de imóvel exemplo -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Imóvel 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Imóvel 3</h5>
+                        <p class="card-text">Descrição breve do imóvel 3.</p>
+                        <a href="#" class="btn btn-primary">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2024 Corretor de Imóveis. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Lógica de logout
+        document.getElementById('logout').addEventListener('click', function() {
+            // Aqui você pode adicionar a lógica para sair do sistema, como limpar o token ou redirecionar
+            alert('Você saiu do sistema.');
+            window.location.href = 'login_register.html'; // Redirecionar para a página de login
+        });
+    </script>
+
+</body>
+</html>

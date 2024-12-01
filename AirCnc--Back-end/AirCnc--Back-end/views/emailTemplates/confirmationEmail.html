@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+    .btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Confirme seu E-mail</h2>
+    <p>Olá, {{name}}!</p>
+    <p>Obrigado por se registrar em nosso site. Por favor, confirme seu e-mail clicando no botão abaixo:</p>
+    <a href="{{confirmationLink}}" class="btn">Confirmar E-mail</a>
+    <p>Se você não se registrou neste site, ignore este e-mail.</p>
+  </div>
+</body>
+</html>
