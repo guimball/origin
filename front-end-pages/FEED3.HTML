@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirCnc - Controle de Propriedades</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        .property-card {
+            height: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .property-card img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            z-index: 1050;
+            padding-top: 60px;
+        }
+
+        .sidebar-header {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            z-index: 1051;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.active .sidebar-header {
+            right: 0;
+        }
+
+        .visit-card {
+            border-left: 4px solid #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .row {
+            --bs-gutter-x: 2rem;
+            --bs-gutter-y: 2rem;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- Navegação -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand text-warning" href="/properties">AirCnc</a>
+            <div class="d-flex">
+                <a href="/cadastro" class="btn btn-warning me-3">+ Cadastrar Propriedade</a>
+                <a href="/agendar-visita" class="btn btn-outline-light">Agendar Visita</a>
+                <button id="toggleSidebar" class="btn btn-outline-light ms-3">Exibir Visitas</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Card Grid Container -->
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">Minhas Propriedades</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="propertyGrid">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Sidebar para visitas -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4>Visitas do Dia</h4>
+            <button id="closeSidebar" class="btn btn-outline-light btn-sm">Fechar</button>
+        </div>
+        <div class="p-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">João Silva</h5>
+                    <p class="card-text"><strong>Telefone:</strong> (85) 99999-9999</p>
+                    <p class="card-text"><strong>Horário:</strong> 10:00</p>
+                    <p class="card-text"><strong>Propriedade:</strong> Casa no Cambeba</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleSidebar = document.getElementById("toggleSidebar");
+        const closeSidebar = document.getElementById("closeSidebar");
+
+        toggleSidebar.addEventListener("click", () => {
+            sidebar.classList.add("active");
+        });
+
+        closeSidebar.addEventListener("click", () => {
+            sidebar.classList.remove("active");
+        });
+    </script>
+
+    <script>
+        // URLs dos endpoints
+        const propertiesEndpoint = 'http://localhost:5000/api/properties'; // Endpoint para propriedades
+        const visitsEndpoint = 'http://localhost:5000/api/visits/allVisits'; // Endpoint para visitas
+
+        // Elementos do DOM
+        const propertyGrid = document.getElementById("propertyGrid");
+        const visitsContainer = document.querySelector('.sidebar .p-3');
+
+        // Função para buscar e preencher o grid com propriedades
+        const fetchProperties = async () => {
+            try {
+                const response = await axios.get(propertiesEndpoint);
+                console.log('Resposta do backend (propriedades):', response.data);
+
+                const properties = response.data.properties;
+
+                if (!Array.isArray(properties)) {
+                    throw new Error('O campo "properties" não é um array.');
+                }
+
+                propertyGrid.innerHTML = '';
+
+                properties.forEach(property => {
+                    const propertyCol = document.createElement('div');
+                    propertyCol.className = 'col';
+                    propertyCol.innerHTML = `
+                        <div class="card property-card h-100">
+                            <img src="https://projetaronline.com/wp-content/uploads/2022/08/P443-FOTOS_11-Foto-2.jpg" 
+                                 class="card-img-top" alt="${property.title}">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">${property.title}</h5>
+                                <p class="card-text">
+                                    <i class="bi bi-geo-alt-fill text-warning"></i> 
+                                    ${property.location}
+                                </p>
+                                <p class="card-text">
+                                    <i class="bi bi-tag-fill text-success"></i> 
+                                    R$ ${property.price.toLocaleString('pt-BR')}
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0">
+                                <button class="btn btn-outline-warning btn-sm w-100">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    propertyGrid.appendChild(propertyCol);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar propriedades:', error);
+            }
+        };
+
+
+        // Função para buscar visitas e preencher a sidebar
+        const fetchVisits = async () => {
+            try {
+                const response = await axios.get(visitsEndpoint); // Faz a requisição com Axios
+                console.log('Resposta do backend (visitas):', response.data); // Log para depuração
+
+                // Acessa o campo "visits" da resposta
+                const visits = response.data.visits;
+
+                // Verifica se o campo "visits" é um array
+                if (!Array.isArray(visits)) {
+                    throw new Error('O campo "visits" não é um array.');
+                }
+
+                // Limpa o container antes de adicionar as visitas
+                visitsContainer.innerHTML = '';
+
+                // Itera sobre as visitas e cria os elementos para exibição
+                visits.forEach(visit => {
+                    const visitCard = document.createElement('div');
+                    visitCard.classList.add('card', 'mb-3', 'visit-card');
+                    visitCard.innerHTML = `
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title mb-3">
+                                    <i class="bi bi-person-circle text-warning"></i> 
+                                    ${visit.visitorName}
+                                </h5>
+                                <span class="badge bg-warning text-dark">${visit.time}</span>
+                            </div>
+                            <p class="card-text">
+                                <i class="bi bi-telephone-fill text-secondary"></i> 
+                                ${visit.visitorPhone}
+                            </p>
+                            <p class="card-text">
+                                <i class="bi bi-calendar-event text-secondary"></i> 
+                                ${new Date(visit.date).toLocaleDateString('pt-BR')}
+                            </p>
+                            <p class="card-text">
+                                <i class="bi bi-house-door-fill text-secondary"></i> 
+                                ${visit.propertyId?.title || 'N/A'}
+                            </p>
+                        </div>
+                    `;
+                    visitsContainer.appendChild(visitCard);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar visitas:', error);
+            }
+        };
+
+        // Chama as funções ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProperties();
+            fetchVisits();
+        });
+
+    </script>
+
+
+    
+</body>
+
+</html>

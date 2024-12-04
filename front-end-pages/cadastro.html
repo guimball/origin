@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirCnc - Cadastrar Propriedade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        .btn-dark {
+            transition: all 0.3s ease;
+        }
+
+        .btn-dark:hover {
+            transform: translateY(-2px);
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+        }
+
+        .form-control {
+            border-left: none;
+        }
+
+        .form-control:focus {
+            border-color: #ced4da;
+            box-shadow: none;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <!-- Coluna esquerda -->
+            <div class="col-md-5 bg-dark text-white p-5">
+                <div class="mb-5">
+                    <h2 class="text-warning">AirCnc</h2>
+                </div>
+                <div class="mt-5 text-center">
+                    <h1 class="display-4">Cadastre suas propriedades de forma fácil e rápida!</h1>
+                    <p class="lead mt-4">Gerencie suas propriedades disponíveis para venda em um único lugar.</p>
+                </div>
+            </div>
+
+            <!-- Coluna Direita -->
+            <div class="col-md-7 bg-white p-5">
+                <div class="form-container">
+                    <h2 class="mb-4">Cadastrar Propriedade</h2>
+                    <form id="formCadastro">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Título</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-house-door"></i>
+                                </span>
+                                <input type="text" id="title" class="form-control" placeholder="Título da propriedade" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descrição</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-file-text"></i>
+                                </span>
+                                <textarea id="description" class="form-control" rows="4" 
+                                    placeholder="Descrição detalhada da propriedade" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Localização</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-geo-alt"></i>
+                                </span>
+                                <input type="text" id="location" class="form-control" 
+                                    placeholder="Endereço da propriedade" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Preço</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </span>
+                                <input type="number" id="price" class="form-control" 
+                                    placeholder="Preço em R$" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="photos" class="form-label">Fotos da Propriedade</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-images"></i>
+                                </span>
+                                <input type="file" id="photos" class="form-control" 
+                                    accept="image/*" multiple>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-dark btn-lg">
+                                <i class="bi bi-plus-circle me-2"></i>Cadastrar Propriedade
+                            </button>
+                            <a href="FEED3.HTML" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>Voltar para o painel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="propertyRequests.js"></script>
+</body>
+
+</html>
